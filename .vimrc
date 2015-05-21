@@ -1,9 +1,3 @@
-set nocompatible
-
-filetype off
-call vundle#rc()
-filetype plugin indent on
-
 syntax on
 
 set backspace=eol,start,indent
