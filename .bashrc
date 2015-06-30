@@ -6,8 +6,20 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
+alias lah='ls -lah'
+alias ltr='ls -ltr'
+
+alias r='vim.nox'
+alias sr='sudo vim.nox'
+
+alias pu='sudo pacman -Syu'
 alias pacman='sudo pacman'
-alias shutdown='sudo poweroff'
+
+alias agi='sudo apt-get install'
+alias ag='sudo apt-get'
+alias acs='apt-cache search'
+alias afs='apt-file search'
+
 alias reboot='sudo reboot'
 alias shutdown='sudo shutdown'
 

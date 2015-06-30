@@ -1,46 +1,7 @@
-URxvt*.transparent: true
-URxvt*.shading: 60
-URxvt*colorUL: #268bd2
+#include "term-colours/visibone"
 
-! --- special colors ---
-
-*background: #0d1926
-*foreground: #d9e6f2
-
-! --- standard colors ---
-
-! black
-*color0: #5a5a5a
-*color8: #808080
-
-! red
-*color1: #de9043
-*color9: #ebbb8c
-
-! green
-*color2: #43de90
-*color10: #8cebbb
-
-! yellow
-*color3: #90de43
-*color11: #bbeb8c
-
-! blue
-*color4: #9043de
-*color12: #bb8ceb
-
-! magenta
-*color5: #de4390
-*color13: #eb8cbb
-
-! cyan
-*color6: #4390de
-*color14: #8cbbeb
-
-! white
-*color7: #a6a6a6
-*color15: #ffffff
-
+*transparent: true
+*shading: 25
 
 ! Xft font settings - used by urxvt
 Xft.dpi:        96
@@ -50,11 +11,11 @@ Xft.hinting:	true
 Xft.hintstyle:  hintslight
 
 URxvt*depth:                            32
-URxvt*saveLines:                        4096
+*saveLines:                        4096
 URxvt*lineSpace:                        0
 URxvt*letterSpace:                      -1
 URxvt*scrollstyle:                      plain
-URxvt*scrollBar:                        false
+*scrollBar:                        false
 URxvt*cursorBlink:                      true
 URxvt*pointerBlank:                     true
 ! URxvt*cursorUnderline:                  true
@@ -67,15 +28,20 @@ URxvt*internalBorder:                   0
 
 URxvt*url-launcher:                     /usr/bin/chromium
 
-*font:                                  xft:inconsolata:pixelsize=14
-URxvt*boldFont:                         xft:inconsolata:bold:pixelsize=14
-! URxvt*italicFont:                     fontname
-! URxvt*boldItalicFont:                 fontname
+URxvt*font:                             xft:inconsolata:pixelsize=13
+URxvt*boldFont:                         xft:inconsolata:bold:pixelsize=13
+URxvt*italicFont:                       xft:inconsolata:italic:pixelsize=13
+URxvt*boldItalicFont:                   xft:inconsolata:bold:italic:pixelsize=13
 
-dmenu.font:                        inconsolata:size=11
-dmenu.selforeground: #43de90
-dmenu.selbackground: #ebbb8c
+dmenu.font:          inconsolata:size=11
+dmenu.selforeground: #FFCC99
+dmenu.selbackground: #CC6666
 
+XTerm*faceName: Inconsolata
+XTerm*faceSize: 11
+XTerm*locale:   true
+
+URxvt*perl-ext-common:                  default,matcher,selection-to-clipboard
 
 !URxvt*cursorColor:                      #93a1a1
 !URxvtDesktop*fading:                    0

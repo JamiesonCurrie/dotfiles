@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if bspc query -M -m | grep -q 'DP-1'; then
+  if bspc query --tree --monitor DP-1 | grep -q ' M - \*'; then
+	bspc config -m DP-1 top_padding $PANEL_HEIGHT
+  else
+	bspc config -m DP-1 top_padding 14
+  fi
+fi
