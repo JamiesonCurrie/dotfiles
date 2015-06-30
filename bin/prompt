@@ -1,0 +1,97 @@
+#!/bin/bash
+
+################################################################################
+
+LINECHAR='═'
+
+#PROMPTCHAR='▶'
+PROMPTCHAR='$'
+
+################################################################################
+#
+# safe_escape() is required for proper PS1 string length computation
+# (try doing CTRL-A and CTRL-E without it)
+
+safe_escape() {
+  echo -n "\\[\\e$1\\]"
+}
+
+RESET=`     safe_escape "[0m"`
+BRIGHT=`    safe_escape "[1m"`
+UNDERLINE=` safe_escape "[4m"`
+BLACK=`     safe_escape "[01;30m"`
+RED=`       safe_escape "[01;31m"`
+GREEN=`     safe_escape "[01;32m"`
+YELLOW=`    safe_escape "[01;33m"`
+BLUE=`      safe_escape "[01;34m"`
+PURPLE=`    safe_escape "[01;35m"`
+CYAN=`      safe_escape "[01;36m"`
+WHITE=`     safe_escape "[01;37m"`
+DEFAULT=`   safe_escape "[01;39m"`
+
+################################################################################
+
+div_line () {
+  local WIDTH=`stty size | cut -d' ' -f2`
+  printf "%${WIDTH}s" | sed "s/ /$LINECHAR/g"
+}
+
+################################################################################
+
+env_tags() {
+  local TAGS=""
+  if [ x"$SSH_CLIENT" != x ]; then
+    TAGS="$TAGS $GREEN<SSH>"
+  fi
+  if [ x"$TMUX" != x ]; then
+    TAGS="$TAGS $GREEN<TMUX>"
+  fi
+  echo "$TAGS"
+}
+
+################################################################################
+
+git_desc() {
+  local DESC=`git describe --tags --dirty 2> /dev/null | sed "s/-dirty/"\\$RED"-dirty/"`
+  echo "$PURPLE$DESC"
+}
+
+git_stash() {
+  local COUNT=`git stash list 2> /dev/null | wc -l`
+  if [ $COUNT != "0" ]; then
+    echo "$YELLOW+stash($COUNT)"
+  fi
+}
+
+git_branch() {
+  local BRANCH=`git branch -a 2> /dev/null | grep '^\*' | sed 's/^\* *//'`
+  case "$BRANCH" in
+    "") return ;;
+    "master") echo "$GREEN$BRANCH$RESET";  return ;;
+    *)        echo "$YELLOW$BRANCH$RESET"; return ;;
+  esac
+}
+
+git_state() {
+  local BRANCH="`git_branch`"
+  if [ -n "$BRANCH" ]; then
+    echo "${BLUE}GIT=<$BRANCH$WHITE@`git_desc``git_stash`$BLUE>\\n"
+  fi
+}
+
+
+################################################################################
+
+#PROMPT="$(div_line)"
+PROMPT="\n"
+PROMPT="$PROMPT$GREEN$(date "+%B %d %Y %T")\n"
+PROMPT="$PROMPT$GREEN[$YELLOW\u$WHITE@$BLUE\h$GREEN]"
+PROMPT="$PROMPT $RED(\w)"
+PROMPT="$PROMPT$(env_tags)"
+PROMPT="$PROMPT\n"
+PROMPT="$PROMPT$(git_state)"
+PROMPT="$PROMPT$RED$PROMPTCHAR$RESET ";
+
+echo "$PROMPT"
+
+################################################################################
