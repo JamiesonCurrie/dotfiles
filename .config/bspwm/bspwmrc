@@ -23,8 +23,8 @@ xrandr --output DP-2 --right-of DP-1
 
 bspc config -m DP-2 top_padding 0
 
-bspc monitor DP-1 -d CONN DMX OraTDS
-bspc monitor DP-2 -d ScienceStation WebMail HoloDeck
+bspc monitor DP-1 -d CONN dmx OraTDS WebMail V
+bspc monitor DP-2 -d VI VII VIII tmux X
 
 compton &
 feh --bg-center ~/wallpapers/landscapes_outer_space.jpg &
