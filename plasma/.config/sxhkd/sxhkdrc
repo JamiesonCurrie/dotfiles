@@ -1,0 +1,21 @@
+#
+# kde hotkeys
+#
+
+super + Return
+  urxvt
+
+super + ctrl + Return
+	xterm
+
+super + space
+	dmenu_run -p ">" -name "Launch" -dim 0.6 -o 0.9 -h 25 -w 250 -l 10 -y 270
+	
+super + x
+  maim -s ~/screenshots/$(date +%Y%m%d_%H%M%S)_screenshot.png
+super + shift + x
+  maim --localize ~/screenshots/$(date +%Y%m%d_%H%M%S)_screenshot.png
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
