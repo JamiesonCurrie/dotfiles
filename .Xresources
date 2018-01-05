@@ -33,13 +33,29 @@ URxvt*boldFont:                         xft:inconsolata:bold:pixelsize=13
 URxvt*italicFont:                       xft:inconsolata:italic:pixelsize=13
 URxvt*boldItalicFont:                   xft:inconsolata:bold:italic:pixelsize=13
 
-dmenu.font:          inconsolata:size=11
+URxvt*background:   #333333
+URxvt*foreground:   #CCCCCC
+URxvt*cursorColor:  #999999
+!*colorBD:              #FFFFFF
+!*colorUL:              #CCCCFF
+
+
+dmenu.font:          xft:inconsolata:pixelsize=16
 dmenu.selforeground: #FFCC99
 dmenu.selbackground: #CC6666
+! dmenu.foreground:    1;33m
+! dmenu.background:
 
 XTerm*faceName: Inconsolata
 XTerm*faceSize: 11
 XTerm*locale:   true
+XTerm*background:   #333333
+XTerm*foreground:   #CCCCCC
+XTerm*cursorColor:  #999999
+
+! Xcursor.theme: jaguarx
+! Xcursor.size: 16
+
 
 URxvt*perl-ext-common:                  default,matcher,selection-to-clipboard
 
