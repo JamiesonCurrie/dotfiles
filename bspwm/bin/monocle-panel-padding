@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if bspc query -M -m | grep -q 'HDMI-0'; then
+  if bspc query --tree --monitor HDMI-0 | grep -q ' M - \*'; then
+    bspc config -m HDMI-0 top_padding $PANEL_HEIGHT
+  else
+    bspc config -m HDMI-0 top_padding 0
+  fi
+fi

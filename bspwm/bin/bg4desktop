@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#declare -A desktops
+#desktops=( ["0x00600003"]="bridge" ["0x00600004"]="holodeck" ["0x00600005"]="science" ["0x00600006"]="10forward" )
+#desktopId=$(bspc query --desktops --desktop)
+#desktopName="${desktops[$desktopId]}"
+
+imageFill="bg-fill"
+desktopName="$(bspc query --desktops --desktop --names)"
+
+#if [ $desktopName == "holodeck" ]; then
+#  imageFill="bg-max"
+#fi
+
+case $desktopName in
+  holodeck)
+    imageFill="bg-max"
+    ;;
+esac
+
+feh --${imageFill} ~/backgrounds/${desktopName}

@@ -1,0 +1,98 @@
+#! /bin/bash
+#
+# Example panel for LemonBoy's bar
+
+. ~/.config/bspwm/panel_colors-visibone
+
+num_mon=$(bspc query -M | wc -l)
+
+main_icon="%{F$COLOR_ICON_FG}%{B$COLOR_ICON_BG} ⚙ %{B-}%{F-}"
+
+while read -r line ; do
+	case $line in
+    T*)
+			# xtitle output
+			title="%{F$COLOR_TITLE_FG}%{B$COLOR_TITLE_BG} ${line#?} %{B-}%{F-}"
+			;;
+		S*)
+			# clock output
+			sys_infos="%{F$COLOR_STATUS_FG}%{B$COLOR_STATUS_BG} ${line#?} %{B-}%{F-}"
+			;;
+		W*)
+			# bspwm internal state
+			wm_infos=""
+			layout=""
+			IFS=':'
+			set -- ${line#?}
+			while [ $# -gt 0 ] ; do
+				item=$1
+				name=${item#?}
+				case $item in
+          [mM]*)
+            [ $num_mon -lt 2 ] && shift && continue
+            case $item in
+              m*)
+								# monitor
+								#FG=$COLOR_ACTIVE_MONITOR_FG
+								#BG=$COLOR_ACTIVE_MONITOR_BG
+								;;
+							M*)
+								# focused monitor
+								#FG=$COLOR_ACTIVE_MONITOR_FG
+								#BG=$COLOR_ACTIVE_MONITOR_BG
+								;;
+            esac
+            #wm_infos="$wm_infos %{F${FG}}%{B${BG}} ${name} %{B-}%{F-}"
+            ;;
+          [FOU]*)
+            case $item in
+              O*)
+                # focused occupied desktop
+                FG=$COLOR_FOCUSED_OCCUPIED_FG
+                BG=$COLOR_FOCUSED_OCCUPIED_BG
+                ;;
+              F*)
+                # focused free desktop
+                FG=$COLOR_FOCUSED_FREE_FG
+                BG=$COLOR_FOCUSED_FREE_BG
+                ;;
+              U*)
+                # focused urgent desktop
+                FG=$COLOR_FOCUSED_URGENT_FG
+                BG=$COLOR_FOCUSED_URGENT_BG
+                ;;
+            esac
+            #%{+u}%{u-}
+            wm_infos="${wm_infos}%{F${FG}}%{B${BG}}%{U$COLOR_FOREGROUND}%{A:bspc desktop -f ${name}; bg4desktop:} ${name} %{A}%{U-}%{B-}%{F-}"
+            ;;
+          [fou]*)
+            case $item in
+              o*)
+                # occupied desktop
+                FG=$COLOR_OCCUPIED_FG
+                BG=$COLOR_OCCUPIED_BG
+                ;;
+              f*)
+                # free desktop
+                FG=$COLOR_FREE_FG
+                BG=$COLOR_FREE_BG
+                ;;
+              u*)
+                # urgent desktop
+                FG=$COLOR_URGENT_FG
+                BG=$COLOR_URGENT_BG
+                ;;
+            esac
+            wm_infos="${wm_infos}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}; bg4desktop:} ${name} %{A}%{B-}%{F-}"
+            ;;
+					[LTG]*)
+						# layout
+						layout="%{F$COLOR_FOCUSED_FREE_FG}%{B$COLOR_LAYOUT_BG} ${name} %{B-}%{F-}"
+						;;
+				esac
+				shift
+			done
+			;;
+	esac
+	printf "%s\n" "%{l}${main_icon}%{c}${wm_infos}%{r}${sys_infos}"
+done
